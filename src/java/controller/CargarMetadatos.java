@@ -5,7 +5,7 @@
  */
 package controller;
 
-import JFlex.gui.MainFrame;
+
 import com.hp.hpl.jena.ontology.DatatypeProperty;
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;
@@ -142,13 +142,13 @@ public class CargarMetadatos {
             try {
                 filePropiedades.createNewFile();
             } catch (IOException ex) { 
-                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+               //Corregir
             }
         }
         try {
             modelPROV_FOAF.write(new PrintWriter(filePropiedades));
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            //Corregir
         }
         
         

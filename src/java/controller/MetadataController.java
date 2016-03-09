@@ -1,6 +1,6 @@
 package controller;
 
-import JFlex.gui.MainFrame;
+
 import static com.hp.hpl.jena.assembler.JA.OntModel;
 import com.hp.hpl.jena.ontology.DatatypeProperty;
 import com.hp.hpl.jena.ontology.Individual;
@@ -10,6 +10,25 @@ import com.hp.hpl.jena.ontology.OntModelSpec;
 import com.hp.hpl.jena.ontology.Ontology;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
+
+import controller.util.JsfUtil;
+import controller.util.JsfUtil.PersistAction;
+import java.io.Serializable;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJB;
+import javax.ejb.EJBException;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
+import javax.inject.Named;
+import modelo.Repositorio;
+import negocio.RepositorioFacade;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
@@ -21,23 +40,16 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.io.Serializable;
 import java.io.Writer;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.inject.Named;
-import modelo.Repositorio;
-import modelo.User;
+
+
+
+
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -49,7 +61,7 @@ import org.primefaces.event.FlowEvent;
 public class MetadataController implements Serializable {
 
     @EJB
-    private negocio.RepositorioFacade ejbFacadeRepositorio;
+    private RepositorioFacade ejbFacadeRepositorio;
     private List<Repositorio> itemsRepositorio;
     private List<String> itemsGrupo;
     private List<String> itemsLO;
@@ -58,22 +70,10 @@ public class MetadataController implements Serializable {
     private String selectedLO;
     private String selectedMetadatos;
 
-    private User user = new User();
 
     private boolean skip;
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void save() {
-        FacesMessage msg = new FacesMessage("Successful", "Welcome :" + user.getFirstname());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
+   
 
     public boolean isSkip() {
         return skip;
@@ -395,7 +395,7 @@ public class MetadataController implements Serializable {
                             try {
                                 filePropiedades.createNewFile();
                             } catch (IOException ex) {
-                                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                                //Corregir
                             }
                         }
                         try {
@@ -403,7 +403,7 @@ public class MetadataController implements Serializable {
 
                             modelPROV_FOAF.write(new PrintWriter(filePropiedades));
                         } catch (FileNotFoundException ex) {
-                            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                            //Corregir
                         }
 
                         /////AQUI DEBES TOMAR LOS VALORES DE LOS CAMPOS QUE ESTAN DENTRO DE oai_dc:dc
